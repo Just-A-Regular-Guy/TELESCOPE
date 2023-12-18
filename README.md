@@ -1,11 +1,11 @@
 # TELESCOPE
 CLI Tool for Nmap Options Layouts
 
--Overview-
+#-Overview-
 
 TELESCOPE is a powerful command-line interface (CLI) tool designed to simplify the management of Nmap options layouts. With TELESCOPE, you can effortlessly create, store, configure, and execute Nmap scan configurations, making network reconnaissance more efficient and organized. Additionally, TELESCOPE offers the ability to automatically output scan results to a text file by default, facilitating seamless integration into reports and post-scan analysis.
 
--Features-
+#-Features-
 
 - Layout Management: 
  Easily create, view, edit, and delete Nmap options layouts.
@@ -21,3 +21,5 @@ TELESCOPE is a powerful command-line interface (CLI) tool designed to simplify t
 
 - Automatic Result Output: 
   Scan results are automatically saved to a text file for easy integration into reports and post-scan analysis.
+
+#-Installation-
