@@ -1,4 +1,4 @@
-# Telescope
+# TELESCOPE
 CLI Tool for Nmap Options Layouts
 
 -Overview-
