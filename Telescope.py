@@ -115,38 +115,46 @@ def help_chart() :
     print('|<>═══<> exit                               exit from Telescope            |')
     print('+------------------------------------+-------------------------------------+')
 
-#perform the scan and save the output
 def run_nmap_scan(target, nmap_options, nmap_ports):
     # Construct the Nmap command
     nmap_command = ['nmap', target] + nmap_options.split() + nmap_ports.split()
 
     try:
-        # Run the Nmap scan using subprocess
-        result = subprocess.run(nmap_command, capture_output=True, text=True, check=True)
+        # Run the Nmap scan using subprocess with stdout as PIPE
+        process = subprocess.Popen(nmap_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
+
+        # Print the Nmap scan results in real-time
+        print()
+        print('+-------------------------------------------------------------------------------------------------------------------------------------+')
+        print('|<>═════════════════════════════════════════════════════< Nmap scan results >═══════════════════════════════════════════════════════<>|')
+        print('+-------------------------------------------------------------------------------------------------------------------------------------+')
+
+        for line in iter(process.stdout.readline, ''):
+            print(line, end='', flush=True)
+
+        process.stdout.close()
+        process.wait()
+
+        print()
+        print('+-------------------------------------------------------------------------------------------------------------------------------------+')
+        print()
         
-        # Print the Nmap scan results
-        print()
-        print('+---------------------------------------------------------------------------------------------------+')
-        print('|<>════════════════════════════════════< Nmap scan results >══════════════════════════════════════<>|')
-        print('+---------------------------------------------------------------------------------------------------+')
-        print(result.stdout)
-        print()
-        print('+---------------------------------------------------------------------------------------------------+')
-        print()
- 
-         # Run the Nmap scan and redirect the output to a text file
+        # Run the Nmap scan and redirect the output to a text file
         print("<>═╔═<"+ layout_name +">[TELESCOPE]<Enter output file name>")
-        output_file = input('   ╚═<>:')
+        output_file_name = input('   ╚═<>:')
+        current_directory = os.getcwd()
+        output_file = os.path.join(current_directory, 'output', output_file_name)
         with open(output_file, 'w') as file:
-            result = subprocess.run(nmap_command, stdout=file, text=True, check=True)
+            process = subprocess.Popen(nmap_command, stdout=file, stderr=subprocess.STDOUT, text=True)
+            process.communicate()  # Wait for the process to finish
         
         # Print a success message
         print(f"<>═══<"+ layout_name +">[TELESCOPE]<Nmap scan results saved to {output_file}>")
-        
+
     except subprocess.CalledProcessError as e:
         # Handle any errors that may occur during the Nmap scan
         print("<>═╔═<"+ layout_name +">[TELESCOPE]<Error during Nmap scan>")
-        print('   ╚═<>:'+e.stderr)
+        print('   ╚═<>:' + e.stderr)
 
 def logo():
     print('||>═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════<||')
