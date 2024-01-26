@@ -30,8 +30,8 @@ Telescope is a powerful command-line interface (CLI) tool designed to simplify t
 - Navigate to the Telescope directory:
      cd Telescope
 
-- run Telescope:
-     python3 Telescope.py
+- run Telescope with administrator privileges:
+     sudo python3 Telescope.py
 
 # Disclaimer
 
