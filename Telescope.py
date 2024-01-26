@@ -1,6 +1,9 @@
 import subprocess
 import json
 import os
+import tkinter as tk
+from tkinter import ttk
+import getpass
 
 # Function to read JSON file and update variables based on the chosen layout_name
 def choose_layout(file_path, chosen_layout_name):
@@ -115,6 +118,30 @@ def help_chart() :
     print('|<>═══<> exit                               exit from Telescope            |')
     print('+------------------------------------+-------------------------------------+')
 
+def save_file_with_loading_bar(output_file, scan_results):
+    # Create the main application window
+    app = tk.Tk()
+    app.title("Saving Nmap Results")
+
+    # Create a progress bar
+    progress_bar = ttk.Progressbar(app, mode='indeterminate')
+    progress_bar.pack(pady=10)
+
+    # Function to save the scan results in a file
+    def save_results():
+        with open(output_file, 'w', buffering=1, encoding='utf-8') as file:
+            file.write(scan_results)
+            app.after(100, app.destroy)  # Close the app after 100 milliseconds
+
+    # Run the save function in a separate thread
+    app.after(100, save_results)
+
+    # Start the progress bar
+    progress_bar.start()
+
+    # Run the application
+    app.mainloop()
+
 def run_nmap_scan(target, nmap_options, nmap_ports):
     # Construct the Nmap command
     nmap_command = ['nmap', target] + nmap_options.split() + nmap_ports.split()
@@ -123,14 +150,16 @@ def run_nmap_scan(target, nmap_options, nmap_ports):
         # Run the Nmap scan using subprocess with stdout as PIPE
         process = subprocess.Popen(nmap_command, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True, bufsize=1)
 
-        # Print the Nmap scan results in real-time
+        # Print the Nmap scan results in real-time and store them in memory
         print()
         print('+-------------------------------------------------------------------------------------------------------------------------------------+')
         print('|<>═════════════════════════════════════════════════════< Nmap scan results >═══════════════════════════════════════════════════════<>|')
         print('+-------------------------------------------------------------------------------------------------------------------------------------+')
 
+        scan_results = ''
         for line in iter(process.stdout.readline, ''):
-            print(line, end='', flush=True)
+            print(line, end='', flush=True)  # Print to console and flush immediately
+            scan_results += line  # Store in memory
 
         process.stdout.close()
         process.wait()
@@ -138,23 +167,30 @@ def run_nmap_scan(target, nmap_options, nmap_ports):
         print()
         print('+-------------------------------------------------------------------------------------------------------------------------------------+')
         print()
-        
-        # Run the Nmap scan and redirect the output to a text file
-        print("<>═╔═<"+ layout_name +">[TELESCOPE]<Enter output file name>")
-        output_file_name = input('   ╚═<>:')
+
+        # Ask for the final output file name using input (to display what you're typing)
+        print("<>═╔═<" + layout_name + ">[TELESCOPE]<Enter final output file name>")
+        final_output_file_name = input('   ╚═<>:')
         current_directory = os.getcwd()
-        output_file = os.path.join(current_directory, 'output', output_file_name)
-        with open(output_file, 'w') as file:
-            process = subprocess.Popen(nmap_command, stdout=file, stderr=subprocess.STDOUT, text=True)
-            process.communicate()  # Wait for the process to finish
-        
+        output_directory = os.path.join(current_directory, 'output')
+
+        # Create the output directory if it doesn't exist
+        os.makedirs(output_directory, exist_ok=True)
+
+        final_output_file = os.path.join(output_directory, final_output_file_name + '.txt')
+
+        # Display the loading bar pop-up window
+        save_file_with_loading_bar(final_output_file, scan_results)
+
         # Print a success message
-        print(f"<>═══<"+ layout_name +">[TELESCOPE]<Nmap scan results saved to {output_file}>")
+        print()
+        print(f"<>═══<" + layout_name + ">[TELESCOPE]<Nmap scan results saved to {final_output_file}>")
 
     except subprocess.CalledProcessError as e:
         # Handle any errors that may occur during the Nmap scan
         print("<>═╔═<"+ layout_name +">[TELESCOPE]<Error during Nmap scan>")
         print('   ╚═<>:' + e.stderr)
+
 
 def logo():
     print('||>═════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════<||')
@@ -294,11 +330,14 @@ def main_1():
                 else : main()      
 
         elif choice == 'scan' :
-            print('   ╚═<'+layout_name+'>[TELESCOPE]<Enter target ip or host name>')
-            global target
-            target = input('   ╚═<>:')
-            run_nmap_scan(target, layout_options, layout_ports)
-            main()
+            if layout_name == '' :
+                print('   ╚═<>[TELESCOPE]<No layout selected, please load a layout first>')
+            else :
+                print('   ╚═<'+layout_name+'>[TELESCOPE]<Enter target ip or host name>')
+                global target
+                target = input('   ╚═<>:')
+                run_nmap_scan(target, layout_options, layout_ports)
+                main()
 
         elif choice == '' :
             main_1()
