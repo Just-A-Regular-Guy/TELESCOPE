@@ -25,13 +25,13 @@ Telescope is a powerful command-line interface (CLI) tool designed to simplify t
 # Installation
 
 - Clone the Telescope repository:
-     git clone https://github.com/Just-A-Regular-Guy/Telescope
+     git clone https://github.com/Just-A-Regular-Guy/telescope
 
 - Navigate to the Telescope directory:
-     cd Telescope
+     cd telescope
 
 - run Telescope with administrator privileges:
-     sudo python3 Telescope.py
+     sudo python3 telescope.py
 
 # Disclaimer
 
@@ -41,5 +41,5 @@ The developers and contributors of Telescope disclaim any responsibility for dam
 
 Telescope is provided "as is" without any warranties or guarantees. The developers and contributors of Telescope make no representations or warranties of any kind, express or implied, regarding the tool's functionality, reliability, or suitability for any purpose.
 
-By using Telescope, you acknowledge that you have read, understood, and agreed to the terms outlined in this LICENSE: https://github.com/Just-A-Regular-Guy/Telescope/blob/main/LICENSE . The developers and contributors of Telescope reserve the right to modify or update this LICENSE at any time.
+By using Telescope, you acknowledge that you have read, understood, and agreed to the terms outlined in this LICENSE: https://github.com/Just-A-Regular-Guy/telescope/blob/main/LICENSE . The developers and contributors of Telescope reserve the right to modify or update this LICENSE at any time.
 
