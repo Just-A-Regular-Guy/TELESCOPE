@@ -25,13 +25,13 @@ Telescope is a powerful command-line interface (CLI) tool designed to simplify t
 # Installation
 
 - Clone the Telescope repository:
-     git clone https://github.com/Just-A-Regular-Guy/telescope
+     `git clone https://github.com/Just-A-Regular-Guy/telescope`
 
 - Navigate to the Telescope directory:
-     cd telescope
+     `cd telescope`
 
 - run Telescope with administrator privileges:
-     sudo python3 telescope.py
+     `sudo python3 telescope.py`
 
 # Disclaimer
 
