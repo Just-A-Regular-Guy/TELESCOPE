@@ -8,30 +8,36 @@ Telescope is a powerful command-line interface (CLI) tool designed to simplify t
 # Features
 
 - Layout Management: 
- Easily create, view, edit, and delete Nmap options layouts.
+` Easily create, view, edit, and delete Nmap options layouts.`
 
 - Configuration Storage: 
-     Store your frequently used Nmap scan configurations for quick access.
+   `  Store your frequently used Nmap scan configurations for quick access.`
 
 - Template System: 
-     Utilize predefined templates or create your own for common scanning scenarios.
+   `  Utilize predefined templates or create your own for common scanning scenarios.`
 
 - Execute Scans: 
-     Run Nmap scans with your saved layouts for streamlined reconnaissance.
+   `  Run Nmap scans with your saved layouts for streamlined reconnaissance.`
 
 - Automatic Result Output: 
-     Scan results are automatically saved to a text file for easy integration into reports and post-scan analysis.
+     `Scan results are automatically saved to a text file for easy integration into reports and post-scan analysis.`
 
 # Installation
 
 - Clone the Telescope repository:
-     `git clone https://github.com/Just-A-Regular-Guy/telescope`
+     ```sh
+  git clone https://github.com/Just-A-Regular-Guy/telescope
+     ```
 
 - Navigate to the Telescope directory:
-     `cd telescope`
+     ```sh
+  cd telescope
+     ```
 
 - run Telescope with administrator privileges:
-     `sudo python3 telescope.py`
+     ```sh
+  sudo python3 telescope.py
+     ```
 
 # Disclaimer
 
