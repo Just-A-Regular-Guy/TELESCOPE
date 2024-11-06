@@ -16,7 +16,7 @@
     "layout_ports": ""
   },
   "deep_dive": {
-    "layout_options": "-T3 --min-rate 0.01 --max-rate 49 --max-parallelism 49 -v3 -sS -sU --noninteractive --reason --packet-trace --max-retries 2 --traceroute -sV -O --osscan-guess --script default or safe",
+    "layout_options": "-T3 --min-rate 0.01 --max-rate 49 --max-parallelism 49 -v3 -sS -sU --noninteractive --reason --packet-trace --max-retries 2 --traceroute -sV -O --osscan-guess --script "default and safe"",
     "layout_ports": "-P-"
   },
   "top_ports_tcp": {
